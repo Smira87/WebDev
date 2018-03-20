@@ -1,0 +1,57 @@
+using System.Collections;
+
+using System.Collections.Generic;
+using 
+UnityEngine;
+
+
+public class TouchControll : MonoBehaviour
+{
+
+    public GameObject[] touchedObj = new GameObject[2];
+
+    private void Start()
+    {
+        touchedObj = GameObject.FindGameObjectsWithTag("PADDLE");
+    }
+
+    void Update()
+    {
+        Touch[] myTouches = Input.touches;
+        //Get how much finger/tap in screen
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            Vector2 mainPos = Camera.main.ScreenToWorldPoint(myTouches[i].position);
+         
+            Ray ray = Camera.main.ScreenPointToRay(myTouches[i].position);
+            RaycastHit hit;
+            
+           // mainPos.z = -4f;
+            if (Physics.Raycast(ray, out hit))
+            {
+                //OnMouseDown()
+                if (hit.transform.CompareTag("PADDLE") && myTouches[i].phase == TouchPhase.Began)
+                {
+                    touchedObj[i] = hit.transform.gameObject;
+                    print("Obj Touched!!");
+                }
+             
+            }
+            //OnMouseDrag
+            int ID = myTouches[i].fingerId;
+            if (touchedObj[ID] != null )
+            {
+                mainPos.y = touchedObj[ID].transform.position.y;
+                touchedObj[ID].transform.position = mainPos;  
+                print("Obj Dragged!!");
+            }
+            //OnMouseUp()
+            if (myTouches[i].phase == TouchPhase.Ended && touchedObj[ID] != null)
+            {
+                //touchedObj[ID].GetComponent<Rigidbody>().AddForce(Vector3.right * 50f);
+                touchedObj[ID] = null;
+                print("Obj Released!!");
+            }
+        }
+    }
+}
