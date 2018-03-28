@@ -3,7 +3,7 @@ from client import NewClient
 from fakedata import DID
 from helpers import checkResponseOK, compareDictKeyValues, checkLog
 
-class TestDID:
+class Test_DID:
 
     @classmethod
     def setup_class(self):
