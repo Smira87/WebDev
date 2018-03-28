@@ -4,7 +4,7 @@ from helpers import checkResponseOK, compareDictKeyValues, checkLog
 from fixtures import setupRoutingGroup, teardownRoutingGroup
 
 
-class Pyest_AccountMethods:
+class Pytest_AccountMethods:
 
 
     @classmethod
