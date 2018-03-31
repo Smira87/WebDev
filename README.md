@@ -99,9 +99,9 @@ nosetests Test_NetAddresses:Test_NetAddresses.test_NetAddress
 ```
 
 Running with pytest
-```
-pytest 
-```
+
+'pytest' command should work but for some reason only 'pytest Pytest*' works to run all tests
+
 Test particular file:
 ```
 pytest -v /usr/home/ssp-root/sippy_xmlapi_tests/Pytest_NetAddresses.py
