@@ -100,7 +100,7 @@ nosetests Test_NetAddresses:Test_NetAddresses.test_NetAddress
 
 Running with pytest
 
-'pytest' command should work but for some reason only 'pytest Pytest*' works to run all tests
+'pytest'  will run all files in the current directory and its subdirectories of the form test_*.py or *_test.py #But I have named my files starting from Pytest/ will leave it for now as it is to for comfotale a view #
 
 Test particular file:
 ```
