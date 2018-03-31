@@ -100,7 +100,7 @@ nosetests Test_NetAddresses:Test_NetAddresses.test_NetAddress
 
 Running with pytest
 
-'pytest'  will run all files in the current directory and its subdirectories of the form test_*.py or *_test.py #But I have named my files starting from Pytest/ will leave it for now as it is to for comfotale a view #
+'pytest'  will run all files in the current directory and its subdirectories of the form test_*.py or *_test.py #But I have named my files starting from Pytest_*/ will leave it for now as it is to for a comfotale view #
 
 Test particular file:
 ```
