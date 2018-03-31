@@ -20,7 +20,10 @@ Use the [nose](https://nose.readthedocs.org/en/latest/) to run the tests.
 ```
 (cd /usr/ports/devel/py-nose; sudo make clean install)
 ```
-
+Install pytest.
+```
+sudo pkg install py27-pytest
+```
 
 Use virtualenv to set up an isolated python environment on your system.
 
@@ -29,11 +32,20 @@ virtualenv env
 source ./env/bin/activate
 ```
 
+Create some folder into your env and upload there files from Download section https://bitbucket.org/sippysoft/sippy_xmlapi_tests/downloads/ 
+And upload the files from this repositorium to the same folder.
+
+make export as follows:
+
+```
+export PATH=/usr/local/bin:$PATH
+```
+
 Install dependencies listed in `requirements.txt` using pip.
 
 ```
 (cd /usr/ports/devel/py-pip/; sudo make clean install)
-pip install -r requirements.txt
+sudo pip install -r requirements.txt  ## (Do this step once again(multiple times) if you face ImportError: No module named httplib2 when start testing)
 ```
 
 The test suite expects the following environment variables to be set:
@@ -86,6 +98,16 @@ Test particular method from particular file:
 nosetests Test_NetAddresses:Test_NetAddresses.test_NetAddress
 ```
 
+Running with pytest
+```
+pytest 
+```
+Test particular file:
+```
+pytest -v /usr/home/ssp-root/sippy_xmlapi_tests/Pytest_NetAddresses.py
+
+-v is for Verbose
+```
 ## Exit the testing environment
 ```
 deactivate
