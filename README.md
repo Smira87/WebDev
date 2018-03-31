@@ -45,7 +45,7 @@ Install dependencies listed in `requirements.txt` using pip.
 
 ```
 (cd /usr/ports/devel/py-pip/; sudo make clean install)
-sudo pip install -r requirements.txt  ## (Do this step once again(multiple times) if you face ImportError: No module named httplib2 when start testing)
+sudo pip install -r requirements.txt 
 ```
 
 The test suite expects the following environment variables to be set:
