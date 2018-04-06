@@ -16,13 +16,14 @@ XMLAPI unit tests.
 
 ## Set up
 
-Use the [nose](https://nose.readthedocs.org/en/latest/) to run the tests.
-```
-(cd /usr/ports/devel/py-nose; sudo make clean install)
-```
 Install pytest.
 ```
-sudo pkg install py27-pytest
+ cd /usr/ports/
+   cd devel/py-pytest
+   sudo make clean
+   sudo make config-recursive
+   sudo make
+   sudo make install
 ```
 
 Use virtualenv to set up an isolated python environment on your system.
@@ -31,9 +32,7 @@ Use virtualenv to set up an isolated python environment on your system.
 virtualenv env
 source ./env/bin/activate
 ```
-
-Create some folder into your env and upload there files from Download section https://bitbucket.org/sippysoft/sippy_xmlapi_tests/downloads/ 
-And upload the files from this repositorium to the same folder.
+Upload the files from this repositorium to the same folder.
 
 make export as follows:
 
@@ -83,24 +82,9 @@ would NOT be tried at all.
 
 ## Running the Test Suite
 
-Running with nose
-```
-nosetests
-```
-
-Test particular file:
-```
-nosetests /usr/home/ssp-root/sippy_xmlapi_tests/Test_NetAddresses.py
-```
-
-Test particular method from particular file:
-```
-nosetests Test_NetAddresses:Test_NetAddresses.test_NetAddress
-```
-
 Running with pytest
 
-'pytest'  will run all files in the current directory and its subdirectories of the form test_*.py or *_test.py #But I have named my files starting from Pytest_*/ will leave it for now as it is to for a comfotale view #
+'pytest'  will run all files in the current directory and its subdirectories of the form test_*.py or *_test.py 
 
 Test particular file:
 ```
@@ -134,7 +118,7 @@ DELETE 89
 ## Todo / Ideas
 
 
-- Switch from nose to pytest.
+- Switch from nose to pytest. IN PROGRESS in scope of this repo
 - Differentiate between trusted mode and authenticated mode
 - Write guidelines for writing/structuring tests
 - Hook up to run automatically form jenkins.
