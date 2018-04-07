@@ -32,7 +32,11 @@ Use virtualenv to set up an isolated python environment on your system.
 virtualenv env
 source ./env/bin/activate
 ```
-Upload the files from this repositorium to the same folder.
+Upload the files from this repositorium:
+
+```
+git clone https://github.com/Smira87/API-pytes
+```
 
 make export as follows:
 
