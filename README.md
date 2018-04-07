@@ -35,7 +35,7 @@ source ./env/bin/activate
 Upload the files from this repositorium:
 
 ```
-git clone https://github.com/Smira87/API-pytes
+git clone https://github.com/Smira87/API-pytest
 ```
 
 make export as follows:
