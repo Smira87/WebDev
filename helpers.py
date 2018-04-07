@@ -19,7 +19,7 @@ def compareDictKeyValues(originalDict, newDict, excludekeys=[], debug=False):
             print(newDict.get(k), originalDict.get(k), errString.format(k, newDict.get(k),
                                                               originalDict.get(k)))
         if k not in excludekeys:  # ignore this key
-            assert newDict[k] = originalDict[k], errString.format(k, newDict[k], originalDict[k])
+            assert newDict[k] == originalDict[k], errString.format(k, newDict[k], originalDict[k])
 
 
 def getLogs(client, resource=None, action=None):
