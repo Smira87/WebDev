@@ -1,35 +1,65 @@
-<html>
-<head>
-<title>Login and Registration Form Design</title>
-	<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+body{
+	background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(pic1.jpeg);
+	background-size: cover;
+	height: 100vh;
+	background-position: center;
+	}
+	
+	.login-page{
+		width: 360px;
+		padding: 10% 0 0;
+		margin: auto;
+	}
+	
+	.form{
+		position: relative;
+		z-index: 1;
+		background: rgba(7,70,95,0.8);
+		max-width: 360px;
+		margin: 0 auto 100 px;
+		padding: 45px;
+		text-align: center;
+	}
 
-<div class="login-page">
-<div class="form">
-	<form class ="register-form">
-	 <input type="text" placeholder="name"/>
-	  <input type="text" placeholder="password"/>
-	 <input type="text" placeholder="email"/>
-	<button>Create</button>
-	<p class="message">Already Registered? <a href="#">Login</a>
-	</p>
-    </form>
+	.form input{
+		font-family: "Roboto", sans-serif;
+		outline: 1;
+		background: #f2f2f2;
+		width: 100%;
+		border: 0;
+		margin: 0 0 15px;
+		padding: 15px;
+		box-size: 14px;
+	}
 	
-	<form class "login-form">
-	<input type="text" placeholder="name"/>
-	  <input type="password" placeholder="password"/>
-	  <button>Login</button>
-	  <p class="message">Not Registered? <a href="javascript:myFunction('You clicked!')">Register</a></p>
-	</form>
+	.form button{
+		font-family: "Roboto", sans-serif;
+		text-transform: uppercase;
+		outline: 0;
+		background: #4CAF50;
+		width: 100%;
+		border: 0;
+		color: #FFFFFF;
+		padding: 15px;
+		font-size: 14px;
+		cursor: pointer;
+		
+	}
 	
-	<script type="text/javascript">
-function myFunction(myMessage) {
-    alert(myMessage);
-}
+	.form button:hover,.form button:active{
+		background: #43A047;
+	}
 	
-</div>
-</div>
+	.form .message{
+		margin: 15px 0 0;
+		color: aliceblue;
+		font-size: 12px;
+	}
 	
-</body>
-</html>
+	.form .message a{
+		color:#FA8072;
+		text-decoration: navy;
+	}
+	.form .register-form{
+		display: none;
+	}
