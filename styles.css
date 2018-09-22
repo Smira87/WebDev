@@ -45,3 +45,18 @@ body{
 		cursor: pointer;
 		
 	}
+	
+	.form button:hover,.form button:active{
+		background: #43A047;
+	}
+	
+	.form .message{
+		margin: 15px 0 0;
+		color: aliceblue;
+		font-size: 12px;
+	}
+	
+	.form .message a{
+		color:#FA8072;
+		text-decoration: navy;
+	}
