@@ -26,11 +26,14 @@
 	<script type="text/javascript">
 		function myFunction(myMessage) {
     		// alert(myMessage);
-			let regF =  document.getElementsByClassName("register-form");
-			let loginF =  document.getElementsByClassName("login-form");
+			document.getElementsByClassName("register-form")[0].style.display = "block";
+			document.getElementsByClassName("login-form")[0].style.display = "none"; 
 
 			console.log(regF);
 			console.log(loginF);
+
+
+
 		}
 	</script>
 </div>
