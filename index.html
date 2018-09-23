@@ -23,14 +23,27 @@
 	  <p class="message">Not Registered? <a href="javascript:switchForms()">Register</a></p>
 	</form>
 	
+	<script src="https://unpkg.com/popmotion/dist/popmotion.global.min.js"></script>
+	
 	<script type="text/javascript">
 	
 			let form1 = document.forms[0];
 			let form2 = document.forms[1];
-       
+			let bigForm = document.getElementsByClassName("form")[0];
+			
 			form1.style.display="block";
 			form2.style.display="none";
 			
+			popmotion.tween({
+			from: {
+				scale: .7
+				},
+				to: {
+				scale: 1
+				},
+				duration: 1000
+				}).start(popmotion.styler(bigForm).set)
+		//	alert(formAnim);
 		function switchForms() 
 		{
 		
