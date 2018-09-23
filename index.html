@@ -12,7 +12,7 @@
 	  <input type="text" placeholder="password"/>
 	 <input type="text" placeholder="email"/>
 	<button>Create</button>
-	<p class="message">Already Registered? <a href="#">Login</a>
+	<p class="message">Already Registered? <a href="javascript:switchForms()">Login</a>
 	</p>
     </form>
 	
@@ -20,19 +20,23 @@
 	<input type="text" placeholder="name"/>
 	  <input type="password" placeholder="password"/>
 	  <button>Login</button>
-	  <p class="message">Not Registered? <a href="javascript:myFunction('You clicked!')">Register</a></p>
+	  <p class="message">Not Registered? <a href="javascript:switchForms()">Register</a></p>
 	</form>
 	
 	<script type="text/javascript">
-		function myFunction(myMessage) {
-    		// alert(myMessage);
-			document.getElementsByClassName("register-form")[0].style.display = "block";
-			document.getElementsByClassName("login-form")[0].style.display = "none"; 
-
-			console.log(regF);
-			console.log(loginF);
-
-
+	
+			let form1 = document.forms[0];
+			let form2 = document.forms[1];
+       
+			form1.style.display="block";
+			form2.style.display="none";
+			
+		function switchForms() 
+		{
+		
+		currState = form1.style.display;
+		form1.style.display=form2.style.display;
+		form2.style.display=currState;
 
 		}
 	</script>
