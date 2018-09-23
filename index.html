@@ -34,6 +34,10 @@
 			form1.style.display="block";
 			form2.style.display="none";
 			
+			tweetMe(bigForm);
+			
+			function tweetMe(form){
+			this.form=form;
 			popmotion.tween({
 			from: {
 				scale: .7
@@ -42,7 +46,8 @@
 				scale: 1
 				},
 				duration: 1000
-				}).start(popmotion.styler(bigForm).set)
+				}).start(popmotion.styler(form).set)
+			}
 		//	alert(formAnim);
 		function switchForms() 
 		{
@@ -50,6 +55,7 @@
 		currState = form1.style.display;
 		form1.style.display=form2.style.display;
 		form2.style.display=currState;
+		tweetMe(bigForm);
 
 		}
 	</script>
