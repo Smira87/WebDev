@@ -60,3 +60,7 @@ body{
 		color:#FA8072;
 		text-decoration: navy;
 	}
+	
+		.form .register-form{
+		display: none;
+	}
