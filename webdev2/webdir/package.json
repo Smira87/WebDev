@@ -1,0 +1,26 @@
+{
+  "name": "webdir",
+  "version": "1.0.0",
+  "description": "My web site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Smira87/"
+  },
+  "author": "Smira",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "http-server": "^0.11.1",
+    "pg": "^7.4.3",
+    "php": "0.0.1"
+  },
+  "devDependencies": {
+    "apache-server-configs": "^3.0.0"
+  }
+}
