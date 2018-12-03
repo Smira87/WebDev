@@ -9,3 +9,4 @@ Used samples: https://github.com/23/resumable.js/blob/master/samples/Backend%20o
 How 2 use:
 
 Just set apache's Root Dir to upload folder and enjoy.
+Required modules: apache,php.
