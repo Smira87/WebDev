@@ -80,17 +80,22 @@
         r.assignBrowse(browseButton);
         r.assignDrop(draggable);
 
-        r.on('fileAdded', function (file, event) {
-            var template =
-                '<div data-uniqueid="' + file.uniqueIdentifier + '">' +
-                '<div class="right delete-file">&times;</div>' +
-                '<div class="file-name">' + file.fileName + ' (' + file.file.type + ')' + '</div>' +
-                '<div class="progress">' +
-                '<div class="progress-bar meter" role="progressbar" style="width: 0%;"></div>' +
-                '</div>' +
-                '</div>';
+        r.on('filesAdded', function (arrayAdded, arraySkipped) {
+            for(i = 0; i < arrayAdded.length; i++) {
+            
+                var template =
+                    '<div data-uniqueid="' + arrayAdded[i].uniqueIdentifier + '">' +
+                    '<div class="right delete-file">&times;</div>' +
+                    '<div class="file-name">' + arrayAdded[i].fileName + ' (' + arrayAdded[i].file.type + ')' + '</div>' +
+                    '<div class="progress">' +
+                    '<div class="progress-bar meter" role="progressbar" style="width: 0%;"></div>' +
+                    '</div>' +
+                    '</div>';
 
-            results.append(template);
+                results.append(template);
+            }
+            for(i = 0; i < arraySkipped.length; i++) 
+                alert(arraySkipped[i].name + ' already added');
         });
 
         uploadFile.on('click', function () {
