@@ -1,6 +1,6 @@
 Web upload project.
 
-Try ir here: http://boy.co.ua/upload/
+Try it here: http://boy.co.ua/upload/
 
 Used Frameworks: Resumable.js, JQuery
 
