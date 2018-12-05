@@ -94,8 +94,13 @@
 
                 results.append(template);
             }
-            for(i = 0; i < arraySkipped.length; i++) 
-                alert(arraySkipped[i].name + ' already added');
+          
+          if (arraySkipped.length>0) {
+ for(i = 0; i < arraySkipped.length; i++)
+} else { 
+    alert('Huzzah!');
+}
+    alert('Huzzah!');
         });
         
       	r.on('fileError', function(file, message){
