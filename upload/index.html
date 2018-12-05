@@ -94,11 +94,7 @@
                 alert(arraySkipped[i].name + ' already added');
         });
 
-        r.on('complete', function(){
-
-                alert('Huzzah');
-
-        });
+     
 
         r.on('fileError', function(file, message){
                 alert('Hi Geka! Due to technical reasons ' + file.fileName +' has not been downloaded');
