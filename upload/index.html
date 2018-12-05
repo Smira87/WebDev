@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Resumable file uploads demo">
+    <meta name="author" content="Sergiy Smirnov">
+
+    <title>Resumable File Uploader</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="resumable.js"></script>
+
+    <style>
+    html, body {
+        height: 100%;
+    }
+    body {
+        display: flex;
+        padding: 40px 0;
+        text-align: center;
+        align-items: center;
+        background: #f5f5f5;
+    }
+    .form {
+        padding: 15px;
+        margin: 0 auto;
+    }
+    .drop-zone {
+        line-height: 4;
+        border: #ccc 3px dashed;
+        border-radius: 10px;
+        color: #999;
+    }
+    .delete-file {
+        color: #bf0000;
+        font-weight: bold;
+        cursor:pointer;
+    }
+    .file-name { text-align: left }
+    [data-nofiles] { display: none }
+    .alert, .drop-zone { margin: 1rem }
+    .right { float: right }
+    </style>
+  </head>
+
+  <body>
+    <div class="form">
+      <h1 class="h3 mb-3 font-weight-normal">Select files to upload</h1>
+      <button id="browseBtn" class="btn btn-primary">+ Add Files</button>
+      <button id="uploadBtn" class="btn btn-danger">Start Upload</button>
+      <div class="alert-danger alert" data-nofiles>Error: Nothing To Upload<br>Please Add Some Files</div>
+      <div id="dragArea" class="drop-zone">Drag &amp; Drop Here</div>
+      <div id="results" class="panel"></div>
+      <div class="alert-box secondary"></div>
+      <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
+    </div>
+    <script>
+    (function () {
+        var r = new Resumable({
+            target: 'proc.php',
+            query: {},
+            maxChunkRetries: 2,
+            maxFiles: 100,
+            prioritizeFirstAndLastChunk: true,
+            simultaneousUploads: 4,
+            chunkSize: 1 * 1024 * 1024
+        });
+        var results = $('#results'),
+            draggable = $('#dragArea'),
+            uploadFile = $('#uploadBtn'),
+            browseButton = $('#browseBtn'),
+            nothingToUpload = $('[data-nofiles]');
+        // if resumable is not supported aka IE
+        if (!r.support) location.href = 'http://browsehappy.com/';
+        r.assignBrowse(browseButton);
+        r.assignDrop(draggable);
+        r.on('filesAdded', function (arrayAdded, arraySkipped) {
+            for(i = 0; i < arrayAdded.length; i++) {
+
+                var template =
+                    '<div data-uniqueid="' + arrayAdded[i].uniqueIdentifier + '">' +
+                    '<div class="right delete-file">&times;</div>' +
+                    '<div class="file-name">' + arrayAdded[i].fileName + ' (' + arrayAdded[i].file.type + ')' + '</div>' +
+                    '<div class="progress">' +
+                    '<div class="progress-bar meter" role="progressbar" style="width: 0%;"></div>' +
+                    '</div>' +
+                    '</div>';
+                results.append(template);
+            }
+
+           for(i = 0; i < arraySkipped.length; i++)
+                alert(arraySkipped[i].name + ' already added');
+        });
+
+     
+
+        r.on('fileError', function(file, message){
+                alert('Due to technical reasons ' + file.fileName +' has not been downloaded');
+        });
+
+        uploadFile.on('click', function () {
+            if (results.children().length > 0) {
+                r.upload();
+            } else {
+                nothingToUpload.fadeIn();
+                setTimeout(function () {
+                    nothingToUpload.fadeOut();
+                }, 3000);
+            }
+        });
+        $(document).on('click', '.delete-file', function () {
+            var self = $(this),
+                parent = self.parent(),
+                identifier = parent.data('uniqueid'),
+                file = r.getFromUniqueIdentifier(identifier);
+           r.removeFile(file);
+            parent.remove();
+        });
+        r.on('fileProgress', function (file) {
+            var progress = Math.floor(file.progress() * 100);
+            $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.meter').css('width', progress + '%');
+            $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.meter').html('&nbsp;' + progress + '%');
+        });
+        r.on('fileSuccess', function (file, message) {
+            $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.progress-bar').addClass('bg-success');
+        });
+        r.on('uploadStart', function () {
+            $('.alert-box').text('Uploading....');
+        });
+        r.on('complete', function () {
+            $('.alert-box').text($('.bg-success').length+' Files uploaded');
+        });
+    })();
+    </script>
+  </body>
+</html>
