@@ -97,7 +97,11 @@
             for(i = 0; i < arraySkipped.length; i++) 
                 alert(arraySkipped[i].name + ' already added');
         });
-
+        
+      	r.on('fileError', function(file, message){
+   		alert('Hi Geka! Due to technical reasons ' + file.fileName +' has not been downloaded');
+  	});
+      
         uploadFile.on('click', function () {
             if (results.children().length > 0) {
                 r.upload();
