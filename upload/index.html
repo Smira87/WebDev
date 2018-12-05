@@ -72,17 +72,13 @@
             uploadFile = $('#uploadBtn'),
             browseButton = $('#browseBtn'),
             nothingToUpload = $('[data-nofiles]');
-
-
         // if resumable is not supported aka IE
         if (!r.support) location.href = 'http://browsehappy.com/';
-
         r.assignBrowse(browseButton);
         r.assignDrop(draggable);
-
         r.on('filesAdded', function (arrayAdded, arraySkipped) {
             for(i = 0; i < arrayAdded.length; i++) {
-            
+
                 var template =
                     '<div data-uniqueid="' + arrayAdded[i].uniqueIdentifier + '">' +
                     '<div class="right delete-file">&times;</div>' +
@@ -91,21 +87,23 @@
                     '<div class="progress-bar meter" role="progressbar" style="width: 0%;"></div>' +
                     '</div>' +
                     '</div>';
-
                 results.append(template);
             }
-          
-          if (arraySkipped.length>0) {
-          alert(arraySkipped[i].name + ' already added');
-} else { 
-    alert('Huzzah!');
-}
+
+           for(i = 0; i < arraySkipped.length; i++)
+                alert(arraySkipped[i].name + ' already added');
         });
-        
-      	r.on('fileError', function(file, message){
-   		alert('Hi Geka! Due to technical reasons ' + file.fileName +' has not been downloaded');
-  	});
-      
+
+        r.on('complete', function(){
+
+                alert('Huzzah');
+
+        });
+
+        r.on('fileError', function(file, message){
+                alert('Hi Geka! Due to technical reasons ' + file.fileName +' has not been downloaded');
+        });
+
         uploadFile.on('click', function () {
             if (results.children().length > 0) {
                 r.upload();
@@ -116,37 +114,28 @@
                 }, 3000);
             }
         });
-
         $(document).on('click', '.delete-file', function () {
             var self = $(this),
                 parent = self.parent(),
                 identifier = parent.data('uniqueid'),
                 file = r.getFromUniqueIdentifier(identifier);
-
-            r.removeFile(file);
+           r.removeFile(file);
             parent.remove();
         });
-
-
         r.on('fileProgress', function (file) {
             var progress = Math.floor(file.progress() * 100);
             $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.meter').css('width', progress + '%');
             $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.meter').html('&nbsp;' + progress + '%');
         });
-
         r.on('fileSuccess', function (file, message) {
             $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.progress-bar').addClass('bg-success');
         });
-
-
         r.on('uploadStart', function () {
             $('.alert-box').text('Uploading....');
         });
-
         r.on('complete', function () {
             $('.alert-box').text($('.bg-success').length+' Files uploaded');
         });
-
     })();
     </script>
   </body>
