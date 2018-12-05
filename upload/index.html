@@ -105,7 +105,7 @@
         });
 
         r.on('fileError', function(file, message){
-//            alert('Due to technical reasons ' + file.fileName + ' has not been uploaded');
+            alert('Due to technical reasons ' + file.fileName + ' has not been uploaded');
             getElByFile(file).find('.right').after('<div class="right action retry">&#8635;</div>');
         });
 
