@@ -136,7 +136,7 @@
 
         r.on('fileProgress', function (file) {
             var progress = Math.floor(file.progress() * 100);
-            if(progress && (file.isUploading() || file.isComplete())) {
+            if(progress <100 && file.isUploading() || file.isComplete()) {
                 getElByFile(file).find('.meter').css('width', progress + '%');
                 getElByFile(file).find('.meter').html('&nbsp;' + progress + '%');
             }
