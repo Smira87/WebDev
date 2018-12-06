@@ -33,14 +33,16 @@
         border-radius: 10px;
         color: #999;
     }
-    .delete-file {
+    .action {
         color: #bf0000;
         font-weight: bold;
         cursor:pointer;
     }
+    .retry { color: #00bf00 }
     .file-name { text-align: left }
     [data-nofiles] { display: none }
     .alert, .drop-zone { margin: 1rem }
+    .right + .right { margin-right: .5rem }
     .right { float: right }
     </style>
   </head>
@@ -62,7 +64,8 @@
             target: 'proc.php',
             query: {},
             maxChunkRetries: 2,
-            maxFiles: 100,
+            maxFiles: 50,
+            maxFileSize: 100 * 1024 * 1024,
             prioritizeFirstAndLastChunk: true,
             simultaneousUploads: 4,
             chunkSize: 1 * 1024 * 1024
@@ -72,17 +75,24 @@
             uploadFile = $('#uploadBtn'),
             browseButton = $('#browseBtn'),
             nothingToUpload = $('[data-nofiles]');
+
+        function getElByFile(file) {
+            return $('[data-uniqueId=' + file.uniqueIdentifier + ']');
+        }
+
         // if resumable is not supported aka IE
         if (!r.support) location.href = 'http://browsehappy.com/';
+
         r.assignBrowse(browseButton);
         r.assignDrop(draggable);
+
         r.on('filesAdded', function (arrayAdded, arraySkipped) {
             for(i = 0; i < arrayAdded.length; i++) {
-
+                var file = arrayAdded[i];
                 var template =
-                    '<div data-uniqueid="' + arrayAdded[i].uniqueIdentifier + '">' +
-                    '<div class="right delete-file">&times;</div>' +
-                    '<div class="file-name">' + arrayAdded[i].fileName + ' (' + arrayAdded[i].file.type + ')' + '</div>' +
+                    '<div data-uniqueid="' + file.uniqueIdentifier + '">' +
+                    '<div class="right action delete">&times;</div>' +
+                    '<div class="file-name">' + file.fileName + ' (' + file.file.type + ')' + '</div>' +
                     '<div class="progress">' +
                     '<div class="progress-bar meter" role="progressbar" style="width: 0%;"></div>' +
                     '</div>' +
@@ -94,10 +104,9 @@
                 alert(arraySkipped[i].name + ' already added');
         });
 
-     
-
         r.on('fileError', function(file, message){
-                alert('Due to technical reasons ' + file.fileName +' has not been downloaded');
+            alert('Due to technical reasons ' + file.fileName + ' has not been uploaded');
+            getElByFile(file).find('.right').after('<div class="right action retry">&#8635;</div>');
         });
 
         uploadFile.on('click', function () {
@@ -110,27 +119,39 @@
                 }, 3000);
             }
         });
-        $(document).on('click', '.delete-file', function () {
+
+        $(document).on('click', '.action', function () {
             var self = $(this),
                 parent = self.parent(),
                 identifier = parent.data('uniqueid'),
                 file = r.getFromUniqueIdentifier(identifier);
-           r.removeFile(file);
-            parent.remove();
+            if(self.hasClass('retry')) {
+                file.retry();
+                self.remove();
+            } else {
+                r.removeFile(file);
+                parent.remove();
+            }
         });
+
         r.on('fileProgress', function (file) {
             var progress = Math.floor(file.progress() * 100);
-            $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.meter').css('width', progress + '%');
-            $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.meter').html('&nbsp;' + progress + '%');
+            if(progress && (file.isUploading() || file.isComplete())) {
+                getElByFile(file).find('.meter').css('width', progress + '%');
+                getElByFile(file).find('.meter').html('&nbsp;' + progress + '%');
+            }
         });
+
         r.on('fileSuccess', function (file, message) {
-            $('[data-uniqueId=' + file.uniqueIdentifier + ']').find('.progress-bar').addClass('bg-success');
+            getElByFile(file).find('.progress-bar').addClass('bg-success');
         });
+
         r.on('uploadStart', function () {
             $('.alert-box').text('Uploading....');
         });
+
         r.on('complete', function () {
-            $('.alert-box').text($('.bg-success').length+' Files uploaded');
+            $('.alert-box').html($('.bg-success').length+' Files <a href="files">uploaded</a>');
         });
     })();
     </script>
